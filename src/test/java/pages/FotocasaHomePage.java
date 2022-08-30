@@ -1,25 +1,34 @@
 package pages;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.logging.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class IdealistaHomePage extends Base{
+public class FotocasaHomePage extends Base{
 
-    public IdealistaHomePage (WebDriver driver){
+    public FotocasaHomePage(WebDriver driver){
         super(driver);
     }
     //Locators
-    By searchBox = By.xpath("//input[@id='campoBus']");
-    By select = By.xpath("//a[@href='/en/venta-viviendas/madrid-provincia/mapa']");
+    By searchBox = By.xpath("//input[@placeholder='Find homes in town, neighborhood...']");
+    By selectCity = By.xpath("//li[@tabindex='0']");
+    By acceptCookies = By.xpath("//button[@data-testid='TcfAccept']");
+    By btnSearch = By.xpath("//button[@type='submit']");
 
     //Actions
-
+    public void acceptCookies(){
+        click(acceptCookies);
+    }
     public void clickOnSearch(String city) {
         click(searchBox);
-        click(select);
+        write(searchBox, city);
+    }
+    public void selectCity(int i) {
+        findElements(selectCity).get(i).click();
+    }
+    public void clickbtnSearch(){
+        click(btnSearch);
+    }
+    public boolean isListCityVisible() {
+        return isElementDisplayed(selectCity);
     }
 }

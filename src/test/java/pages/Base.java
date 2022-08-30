@@ -2,13 +2,14 @@ package pages;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Logger;
 
 public class Base {
 
@@ -16,11 +17,12 @@ public class Base {
     protected WebDriver driver;
     public static final String PURPLE = "\033[0;35m";
     public static final String RESET = "\033[0m";  // Text Reset
-    Logger logger = Logger.getLogger(Base.class.getName());
+    //Logger logger = Logger.getLogger(Base.class.getName());
+    Logger log = new Logger();
 
     public Base (WebDriver driver){
         this.driver = driver;
-        wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(10));
     }
 
     public String getCurrentUrl(){
@@ -72,7 +74,7 @@ public class Base {
 
     public void click (By locator){
         String methodname = StackWalker.getInstance().walk(s -> s.skip(1).findFirst()).get().getMethodName();
-        logger.info(PURPLE + methodname +" -> " + locator.toString() + " -> " + getText(locator).toString() + RESET);
+        log.info(PURPLE + methodname +" -> " + locator.toString() + " -> " + getText(locator).toString() + RESET);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         driver.findElement(locator).click();
     }
@@ -103,7 +105,7 @@ public class Base {
     }
 
     public void clickSelector(By locator, String seleccion){
-        logger.info(locator.toString());
+        log.info(locator.toString());
         click(locator);
         WebElement dropdown = driver.findElement(locator);
         dropdown.findElement(By.xpath("//option[. = '"+seleccion+"']")).click();
@@ -111,7 +113,7 @@ public class Base {
     }
 
     public void refresh_(){
-        logger.info("Refresh page");
+        log.info("Refresh page");
         driver.navigate().refresh();
     }
 
@@ -128,18 +130,18 @@ public class Base {
     }
 
     public void _deteleCookies(){
-        logger.info("Delete Cookies");
+        log.info("Delete Cookies");
         driver.manage().deleteAllCookies();
     }
 
     public void waitFinishLoad(){
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-        logger.info("Wait Load");
+        log.info("Wait Load");
         wait.until(d -> (boolean)javascriptExecutor.executeScript("return window.jQuery != undefined && jQuery.active == 0"));
     }
 
     public void waitElementIsGone(By locator){
-        logger.info("Wait element" + locator.getClass().getName().toString());
+        log.info("Wait element" + locator.getClass().getName().toString());
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 
     }
