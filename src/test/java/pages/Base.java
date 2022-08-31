@@ -2,6 +2,7 @@ package pages;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.Logger;
+import utils.TestListener;
 
 public class Base {
 
@@ -18,11 +19,11 @@ public class Base {
     public static final String PURPLE = "\033[0;35m";
     public static final String RESET = "\033[0m";  // Text Reset
     //Logger logger = Logger.getLogger(Base.class.getName());
-    Logger log = new Logger();
+    java.util.logging.Logger log = Logger.getLogger(TestListener.class.getName());
 
     public Base (WebDriver driver){
         this.driver = driver;
-        wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(5));
     }
 
     public String getCurrentUrl(){
@@ -69,6 +70,7 @@ public class Base {
 
     public void write(By locator, String text){
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        driver.findElement(locator).click();
         driver.findElement(locator).sendKeys(text);
     }
 

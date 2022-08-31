@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.FotocasaHomePage;
+import pages.FotocasaHouseViewer;
 import utils.Cons;
 import static org.junit.jupiter.api.Assertions.*;
 import utils.TestListener;
@@ -19,11 +20,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 
 @ExtendWith(TestListener.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestMethodOrder(MethodOrderer.Alphanumeric.class)
 public class NumberHomes {
 
     Logger logger = Logger.getLogger(NumberHomes.class.getName());
     FotocasaHomePage inFotocasaHomePage;
+    FotocasaHouseViewer inFotocasaHouseViewer;
     static WebDriver driver;
     @BeforeAll
     public static void setUp(){
@@ -36,8 +38,8 @@ public class NumberHomes {
     }
     @AfterAll
     public static void tearDown(){
-   //     driver.close();
-   //     driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     @Test
@@ -50,9 +52,15 @@ public class NumberHomes {
     @Test
     public void t1_search(){
         inFotocasaHomePage = new FotocasaHomePage(driver);
-        inFotocasaHomePage.clickOnSearch("Madrid Provincia");
+        inFotocasaHomePage.clickOnSearch("Madrid Provin");
         assertTrue(inFotocasaHomePage.isListCityVisible());
         inFotocasaHomePage.selectCity(1);
-        inFotocasaHomePage.clickbtnSearch();
     }
+
+    @Test
+    public void t2_getNumberHouse(){
+        inFotocasaHouseViewer = new FotocasaHouseViewer(driver);
+        System.out.println(inFotocasaHouseViewer.getHouses());
+    }
+
 }

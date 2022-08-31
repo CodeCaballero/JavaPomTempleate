@@ -14,13 +14,18 @@ public class FotocasaHomePage extends Base{
     By acceptCookies = By.xpath("//button[@data-testid='TcfAccept']");
     By btnSearch = By.xpath("//button[@type='submit']");
 
+
     //Actions
     public void acceptCookies(){
         click(acceptCookies);
     }
     public void clickOnSearch(String city) {
         click(searchBox);
-        write(searchBox, city);
+        do {
+            write(searchBox, city);
+            System.out.println("YEPPPPPPPPPP");
+        } while (getText(searchBox).contains(city));
+
     }
     public void selectCity(int i) {
         findElements(selectCity).get(i).click();

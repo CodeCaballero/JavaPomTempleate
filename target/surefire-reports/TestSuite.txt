@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 8.075 s <<< FAILURE! - in TestSuite
-t1_search  Time elapsed: 2.036 s  <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
-	at tests.NumberHomes.t1_search(NumberHomes.java:55)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.586 s - in TestSuite

@@ -5,6 +5,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
+        NumberHomes.class,
         NumberHomes.class
 })
 
